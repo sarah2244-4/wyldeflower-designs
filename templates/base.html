@@ -1,3 +1,5 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -24,6 +26,13 @@
     {% endblock %}
 </head>
 <body>
-    <h1>Hello</h1>
+    <div class="container-fluid">
+        <nav>
+
+        </nav>
+    </div>
+    <div>
+        <img class="banner" src="{% static 'images/banner.png' %}" alt="banner" height="450" width="1800">
+    </div>
 </body>
 </html>
