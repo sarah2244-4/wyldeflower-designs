@@ -16,6 +16,9 @@ function setActiveLink() {
 		"li[data-link-name='" + pageName + "']"
 	);
 	if (liElement) {
-		liElement.classList.add("bold");
+		var aElement = liElement.querySelector("a.nav-link");
+		if (aElement) {
+			aElement.classList.add("bold");
+		}
 	}
 }
