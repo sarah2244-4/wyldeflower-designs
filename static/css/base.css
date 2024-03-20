@@ -1,3 +1,49 @@
+/* Global Variables */
+
+:root {
+    --pale: #F4E3CB;
+    --orange: #D37C42;
+    --pink: #E39D97;
+    --yellow: #EBB975;
+    --brown: #EBB975;
+    --font-color: #37332D;
+}
+
+/* Fonts */
+
+@font-face {
+    font-family: 'Wedges';
+    font-style: normal;
+    src: local('Wedges'), url('../fonts/wedges.otf') format('opentype');
+}
+
+@font-face {
+    font-family: 'Wedges Italic';
+    font-style: normal;
+    src: local('Wedges Italic'), url('../fonts/wedges-italic.otf') format('opentype');
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    font-family: 'Lato', sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 1rem;
+}
+
+body {
+    color: var(--font-color);
+}
+
+.wedges {
+    font-family: 'Wedges';
+}
+
+.bold {
+    font-weight: 700;
+}
+
 .banner {
     width: 100vw;
     height: auto;
@@ -16,9 +62,26 @@
     left: 25%;
     margin: 0 auto;
     width: 50%;
-    background: rgba(255,255,255,0.8);
+    background-color: color-mix(in srgb, var(--pale), transparent 25%);
     text-align: center;
+    border: #37332D 2px solid;
+    border-radius: 10% / 40%;
 }
+
+.navbar {
+    background-color: var(--pale);
+}
+
+.navbar a {
+    color: var(--font-color);
+}
+
+.logo {
+    height: 50px;
+    width: auto;
+}
+
+/* Media Queries */
 
 @media screen and (max-width: 900px) {
     .banner {

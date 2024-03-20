@@ -16,6 +16,6 @@ function setActiveLink() {
 		"li[data-link-name='" + pageName + "']"
 	);
 	if (liElement) {
-		liElement.classList.add("active");
+		liElement.classList.add("bold");
 	}
 }

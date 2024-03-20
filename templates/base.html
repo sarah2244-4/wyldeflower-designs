@@ -15,6 +15,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Nunito:wght@300;400;500;600;700;800;900&family=Shadows+Into+Light&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100..700;1,100..700&display=swap" rel="stylesheet">
     {% endblock %}
 
     {% block corejs %}
@@ -28,8 +29,8 @@
 </head>
 <body>
 
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="#">Navbar</a>
+    <nav class="navbar navbar-expand-lg">
+        <a class="navbar-brand" href="{% url 'home' %}"><img class="logo" src="{% static 'images/wyldeflower-kids-logo-tpt.png' %}" width="351" height="142" alt="logo"></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -40,22 +41,35 @@
               <a class="nav-link" href="{% url 'home' %}">Home</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">Link</a>
+              <a class="nav-link" href="#">How it Works</a>
             </li>
             <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Dropdown
+              <a class="nav-link dropdown-toggle" href="#" id="navbarPrintsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Shop Prints
               </a>
-              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <a class="dropdown-item" href="#">Action</a>
-                <a class="dropdown-item" href="#">Another action</a>
-                <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="#">Something else here</a>
+              <div class="dropdown-menu" aria-labelledby="navbarPrintsDropdown">
+                <a class="dropdown-item" href="#">Woodland and Outdoors</a>
+                <a class="dropdown-item" href="#">Animals</a>
+                <a class="dropdown-item" href="#">Educational</a>
               </div>
             </li>
-            <li class="nav-item">
-              <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+            
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarActivitiesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Shop Activities
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarActivitiesDropdown">
+                <a class="dropdown-item" href="#">Colouring Pages</a>
+                <a class="dropdown-item" href="#">Alphabet</a>
+                <a class="dropdown-item" href="#">Numbers</a>
+                <a class="dropdown-item" href="#">Themed</a>
+              </div>
             </li>
+
+            <li class="nav-item">
+              <a class="nav-link" href="#">Subscribe</a>
+            </li>
+
           </ul>
           <form class="form-inline my-2 my-lg-0">
             <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
@@ -73,9 +87,9 @@
     <div class="banner-div text-center">
         <img class="banner" src="{% static 'images/banner.png' %}" alt="banner" height="450" width="1800">
         <div class="overlay">
-            <h1>Activity printables</h1>
+            <h1 class="wedges">Activity printables</h1>
             <p>Sign up to our mailing list to recieve a free printable today and then every month!</p>
-            <a href="#" class="btn">Get free printable</a>
+            <a href="#" class="btn bold">Get free printable</a>
         </div>
     </div>
 </body>
