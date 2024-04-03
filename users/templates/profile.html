@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+
+{% if user.is_authenticated %}
+
+<h1>Logged in as {{ request.user.username }}</h1>
+
+<a href="{% url 'account_logout' %}">Logout</a>
+
+<h1>Welcome, {{ user.username }}</h1>
+    
+    <h2>User Details</h2>
+    <p>Name: {{ user.get_full_name }}</p>
+    <p>Email: {{ user.email }}</p>
+    <p>Phone: {{ user.phone }}</p>
+    <p>Mobile: {{ user.mobile }}</p>
+
+    <h2>Address</h2>
+    {% if address %}
+        <p>Street: {{ address.street }}</p>
+        <p>City: {{ address.city }}</p>
+        <p>County: {{ address.county }}</p>
+        <p>Postcode: {{ address.postcode }}</p>
+    {% else %}
+        <p>No address on file.</p>
+    {% endif %}
+
+    <h2>Orders</h2>
+    {% if orders %}
+        <ul>
+            {% for order in orders %}
+                <li>{{ order.date }} - Total: ${{ order.total }}</li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No orders found.</p>
+    {% endif %}
+    {% endif %}
+
+{% endblock %}
+
