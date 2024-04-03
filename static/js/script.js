@@ -1,5 +1,8 @@
 document.addEventListener("DOMContentLoaded", function () {
 	setActiveLink();
+	var myModal = new bootstrap.Modal(document.getElementById("subscribeModal"), {
+		keyboard: false,
+	});
 });
 
 function setActiveLink() {

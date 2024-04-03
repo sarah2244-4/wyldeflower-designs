@@ -3,17 +3,17 @@
 
 {% block content %}
 
+
+
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-4">
-                <h3>Subsrcibe for free!</h3>
+                <h3>Subscribe <i class="fa-solid fa-envelope-open-text"></i></h3>
 
-                <form method="post" action="{% url 'newsletter_signup' %}" class="form">
-                    {% csrf_token %}
-                    {{ form.as_p }}
-                    
-                    <button type="submit" class="uppercase">Subscribe</button>
-                </form>
+                <!-- Button trigger modal -->
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#subscribeModal">
+                    Subscribe
+                  </button>
 
             </div>
             <div class="col-md-4">
