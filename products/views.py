@@ -4,16 +4,16 @@ from django.contrib.auth.decorators import login_required
 from django.db.models import Q
 from django.db.models.functions import Lower
 
-from .models import Category, Item
-from .forms import ItemForm
+from .models import Category, Product
+from .forms import ProductForm
 
 
-def all_items(request):
+def all_products(request):
     """ 
-    A view to show all items, including sorting and search queries 
+    A view to show all products, including sorting and search queries 
     """
 
-    items = Item.objects.all()
+    products = Product.objects.all()
     query = None
     categories = None
     types = None
@@ -27,7 +27,7 @@ def all_items(request):
 
             if sortkey == 'name':
                 sortkey = 'lower_name'
-                items = items.annotate(lower_name=Lower('name'))
+                products = products.annotate(lower_name=Lower('name'))
 
             if sortkey == 'type':
                 sortkey = 'type__name'
@@ -39,70 +39,70 @@ def all_items(request):
                 direction = request.GET['direction']
                 if direction == 'desc':
                     sortkey = f'-{sortkey}'
-            items = items.order_by(sortkey)
+            products = products.order_by(sortkey)
             
         if 'category' in request.GET:
             categories = request.GET['category'].split(',')
-            items = items.filter(category__name__in=categories)
+            products = products.filter(category__name__in=categories)
             categories = Category.objects.filter(name__in=categories)
 
         if 'q' in request.GET:
             query = request.GET['q']
             if not query:
                 messages.error(request, "You didn't enter any search criteria!")
-                return redirect(reverse('items'))
+                return redirect(reverse('products'))
             
             queries = Q(name__icontains=query) | Q(description__icontains=query)
-            items = items.filter(queries)
+            products = products.filter(queries)
 
     current_sorting = f'{sort}_{direction}'
 
     context = {
-        'items': items,
+        'products': products,
         'search_term': query,
         'current_categories': categories,
         'current_sorting': current_sorting,
     }
 
-    return render(request, 'items/items.html', context)
+    return render(request, 'products/products.html', context)
 
 
-def item_detail(request, item_id):
+def product_detail(request, product_id):
     """
-    A view to show individual item details
+    A view to show individual product details
     """
 
-    item = get_object_or_404(Item, pk=item_id)
+    product = get_object_or_404(Product, pk=product_id)
 
     context = {
-        'item': item,
+        'product': product,
     }
 
-    return render(request, 'items/item_detail.html', context)
+    return render(request, 'products/product_detail.html', context)
 
 
 
 @login_required
-def add_item(request):
+def add_product(request):
     """ 
-    A view for an admin to add an item to the store
+    A view for an admin to add an product to the store
     """
     if not request.user.is_superuser:
         messages.error(request, 'Sorry, only store owners can do that.')
         return redirect(reverse('home'))
 
     if request.method == 'POST':
-        form = ItemForm(request.POST, request.FILES)
+        form = ProductForm(request.POST, request.FILES)
         if form.is_valid():
-            item = form.save()
-            messages.success(request, 'Successfully added item!')
-            return redirect(reverse('item_detail', args=[item.id]))
+            product = form.save()
+            messages.success(request, 'Successfully added product!')
+            return redirect(reverse('product_detail', args=[product.id]))
         else:
-            messages.error(request, 'Failed to add item. Please ensure the form is valid.')
+            messages.error(request, 'Failed to add product. Please ensure the form is valid.')
     else:
-        form = ItemForm()
+        form = ProductForm()
         
-    template = 'items/add_item.html'
+    template = 'products/add_product.html'
     context = {
         'form': form,
     }
@@ -111,46 +111,46 @@ def add_item(request):
 
 
 @login_required
-def edit_item(request, item_id):
+def edit_product(request, product_id):
     """
-    A view for an admin to edit an item in the store
+    A view for an admin to edit an product in the store
     """
     if not request.user.is_superuser:
         messages.error(request, 'Sorry, only store owners can do that.')
         return redirect(reverse('home'))
 
-    item = get_object_or_404(Item, pk=item_id)
+    product = get_object_or_404(Product, pk=product_id)
     if request.method == 'POST':
-        form = ItemForm(request.POST, request.FILES, instance=item)
+        form = ProductForm(request.POST, request.FILES, instance=product)
         if form.is_valid():
             form.save()
             messages.success(request, 'Successfully updated!')
-            return redirect(reverse('item_detail', args=[item.id]))
+            return redirect(reverse('product_detail', args=[product.id]))
         else:
-            messages.error(request, 'Failed to update item. Please ensure the form is valid.')
+            messages.error(request, 'Failed to update product. Please ensure the form is valid.')
     else:
-        form = ItemForm(instance=item)
-        messages.info(request, f'You are editing {item.name}')
+        form = ProductForm(instance=product)
+        messages.info(request, f'You are editing {product.name}')
 
-    template = 'items/edit_item.html'
+    template = 'products/edit_product.html'
     context = {
         'form': form,
-        'item': item,
+        'product': product,
     }
 
     return render(request, template, context)
 
 
 @login_required
-def delete_item(request, item_id):
+def delete_product(request, product_id):
     """
-    A view for an admin to delete an item completely from the store
+    A view for an admin to delete an product completely from the store
     """
     if not request.user.is_superuser:
         messages.error(request, 'Sorry, only store owners can do that.')
         return redirect(reverse('home'))
 
-    item = get_object_or_404(Item, pk=item_id)
-    item.delete()
-    messages.success(request, 'Item deleted!')
-    return redirect(reverse('items'))
+    product = get_object_or_404(Product, pk=product_id)
+    product.delete()
+    messages.success(request, 'Product deleted!')
+    return redirect(reverse('products'))

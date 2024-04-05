@@ -1,12 +1,12 @@
 from django import forms
 
-from .models import Item, Category
+from .models import Product, Category
 
 
-class ItemForm(forms.ModelForm):
+class ProductForm(forms.ModelForm):
 
     class Meta:
-        model = Item
+        model = Product
         fields = '__all__'
 
     image = forms.ImageField(label='Image', required=False)
@@ -18,5 +18,5 @@ class ItemForm(forms.ModelForm):
         friendly_names = [(c.id, c.get_friendly_name()) for c in categories]
 
         self.fields['category'].choices = friendly_names
-        for field_name, field in self.fields.items():
+        for field_name, field in self.fields.products():
             field.widget.attrs['class'] = 'border-black rounded-0'
