@@ -1,13 +1,13 @@
 from django.contrib import admin
 
-from .models import Article
+from .models import Product
 
 
-class ArticleAdmin(admin.ModelAdmin):
+class ProductAdmin(admin.ModelAdmin):
     """
     Prepoluate slug field
     """
-    list_display = ("title", "body",)
-    prepopulated_fields = {"slug": ("title",)} 
+    
+    prepopulated_fields = {"slug": ("name",)} 
 
-admin.site.register(Article, ArticleAdmin)
+admin.site.register(Product, ProductAdmin)

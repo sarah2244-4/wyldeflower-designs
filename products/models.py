@@ -1,4 +1,5 @@
 from django.db import models
+from django.urls import reverse
 
 
 class Category(models.Model):
@@ -16,7 +17,7 @@ class Category(models.Model):
         return self.friendly_name
 
 
-class Item(models.Model):
+class Product(models.Model):
     sku = models.CharField(max_length=254, null=True, blank=True)
     name = models.CharField(max_length=100)
     slug = models.SlugField(null=False, unique=True)
@@ -26,6 +27,7 @@ class Item(models.Model):
     image_url = models.URLField(max_length=1024, null=True, blank=True)
     image = models.ImageField(null=True, blank=True)
     thumb = models.ImageField(null=True, blank=True)
+    date_added = models.DateTimeField(auto_now_add=True)
     category = models.ForeignKey('Category', null=True, blank=True, on_delete=models.SET_NULL)
 
     def __str__(self):
