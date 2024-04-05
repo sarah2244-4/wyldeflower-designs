@@ -93,12 +93,26 @@
       </ul>
 
       <ul class="navbar-nav ml-auto collapse navbar-collapse justify-content-end" id="collapse_target1">
+      {% if request.user.is_authenticated %}
+        {% if request.user.is_superuser %}
+          <li class="nav-item">
+            <a href="{% url 'add_product' %}" class="dropdown-item">Product Management</a>
+          </li>
+        {% endif %}
         <li class="nav-item">
-          <a class="nav-link" href="#" class="btn btn-sm btn-outline-secondary">Sign Up</a>
+          <a href="{% url 'profile' %}" class="dropdown-item">My Profile</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#" class="btn btn-sm btn-outline-secondary"><i class="fa-regular fa-user"></i> Login</a>
+          <a href="{% url 'account_logout' %}" class="dropdown-item">Logout</a>
         </li>
+      {% else %}
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'account_signup' %}" class="btn btn-sm btn-outline-secondary">Sign Up</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'account_login' %}" class="btn btn-sm btn-outline-secondary"><i class="fa-regular fa-user"></i> Login</a>
+        </li>
+      {% endif %}
         <li>
           <a class="nav-link" href="#"><i class="fa-solid fa-basket-shopping"></i></a>
         </li>
