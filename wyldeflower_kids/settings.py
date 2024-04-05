@@ -14,6 +14,12 @@ from dotenv import load_dotenv
 from pathlib import Path
 import os
 
+from django_countries.widgets import LazyChoicesMixin
+
+LazyChoicesMixin.get_choices = lambda self: self._choices
+LazyChoicesMixin.choices = property(LazyChoicesMixin.get_choices, LazyChoicesMixin.set_choices)
+
+
 load_dotenv()
 
 
@@ -49,8 +55,11 @@ INSTALLED_APPS = [
     'home',
     'profiles',
     'products',
+    'bag',
+    'checkout',
 
     'crispy_forms',
+    "crispy_bootstrap4",
 ]
 
 MIDDLEWARE = [
@@ -66,7 +75,9 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'wyldeflower_kids.urls'
 
-CRISPY_TEMPLATE_PACK = 'bootstrap4'
+CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap4"
+
+CRISPY_TEMPLATE_PACK = "bootstrap4"
 
 TEMPLATES = [
     {
