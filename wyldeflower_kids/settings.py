@@ -47,7 +47,7 @@ INSTALLED_APPS = [
     'allauth.account',
     'allauth.socialaccount',
     'home',
-    'users',
+    'profiles',
     'items',
 ]
 
@@ -111,7 +111,10 @@ SOCIALACCOUNT_PROVIDERS = {}
 
 WSGI_APPLICATION = 'wyldeflower_kids.wsgi.application'
 
-CSRF_TRUSTED_ORIGINS = ['127.0.0.1']
+CSRF_TRUSTED_ORIGINS = [
+    'http://127.0.0.1',
+    'http://localhost',
+]
 
 
 # Database
