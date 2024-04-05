@@ -1,13 +1,32 @@
 from django.contrib import admin
+from .models import Product, Category
 
-from .models import Product
 
-
+@admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
     """
     Prepoluate slug field
     """
+    list_display = (
+        'sku',
+        'name',
+        'category',
+        'price',
+        'description',
+        'thumb',
+        'image',
+        'size',
+    )
+
+    ordering = ('sku',)
     
     prepopulated_fields = {"slug": ("name",)} 
 
-admin.site.register(Product, ProductAdmin)
+
+class CategoryAdmin(admin.ModelAdmin):
+    list_display = (
+        'friendly_name',
+        'name',
+    )
+
+admin.site.register(Category, CategoryAdmin)

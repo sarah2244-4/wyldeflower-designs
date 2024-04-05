@@ -5,28 +5,27 @@
 
 {% if user.is_authenticated %}
 
-    <h1>Logged in as {{ request.user.username }}</h1>
+    <div class="container-fluid">
+        <h1>Welcome back, {{ user.username }}</h1>
 
-    <a href="{% url 'account_logout' %}">Logout</a>
+        <h2>Your Details</h2>
 
-    <h1>Welcome, {{ user.username }}</h1>
+        <p>Name: {{ user.get_full_name }}</p>
+        <p>Email: {{ user.email }}</p>
+        <p>Phone: {{ user.phone }}</p>
+        <p>Mobile: {{ user.mobile }}</p>
 
-    <h2>Your Details</h2>
+        <!-- Form to update delivery information -->
+        <h3>Your Delivery Information</h3>
+        <form class="mt-3" action="{% url 'profile' %}" method="POST" id="profile-update-form">
+            {% csrf_token %}
+            {{ form|crispy }}
+            <button class="btn btn-black rounded-0 text-uppercase float-right">Update Information</button>
+        </form>  
 
-    <p>Name: {{ user.get_full_name }}</p>
-    <p>Email: {{ user.email }}</p>
-    <p>Phone: {{ user.phone }}</p>
-    <p>Mobile: {{ user.mobile }}</p>
+        <h2>Orders</h2>
 
-    <!-- Form to update delivery information -->
-    <h3>Your Delivery Information</h3>
-    <form class="mt-3" action="{% url 'profile' %}" method="POST" id="profile-update-form">
-        {% csrf_token %}
-        {{ form|crispy }}
-        <button class="btn btn-black rounded-0 text-uppercase float-right">Update Information</button>
-    </form>  
-
-    <h2>Orders</h2>
+    </div>
     
 {% endif %}
 
