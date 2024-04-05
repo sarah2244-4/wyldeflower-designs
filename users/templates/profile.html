@@ -5,11 +5,18 @@
 
 {% if user.is_authenticated %}
 
-<h1>Logged in as {{ request.user.username }}</h1>
+    <h1>Logged in as {{ request.user.username }}</h1>
 
-<a href="{% url 'account_logout' %}">Logout</a>
+    <a href="{% url 'account_logout' %}">Logout</a>
 
-<h1>Welcome, {{ user.username }}</h1>
+    <h1>Welcome, {{ user.username }}</h1>
+
+    <!-- Form to update delivery information -->
+    <form class="mt-3" action="{% url 'profile' %}" method="POST" id="profile-update-form">
+        {% csrf_token %}
+        {{ form|crispy }}
+        <button class="btn btn-black rounded-0 text-uppercase float-right">Update Information</button>
+    </form>
     
     <h2>User Details</h2>
     <p>Name: {{ user.get_full_name }}</p>
