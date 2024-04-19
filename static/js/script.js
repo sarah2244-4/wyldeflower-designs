@@ -3,6 +3,11 @@ document.addEventListener("DOMContentLoaded", function () {
 	var myModal = new bootstrap.Modal(document.getElementById("subscribeModal"), {
 		keyboard: false,
 	});
+	const toastElList = document.querySelectorAll(".toast");
+	const toastList = [...toastElList].map(
+		(toastEl) => new bootstrap.Toast(toastEl, option)
+	);
+
 });
 
 function setActiveLink() {
