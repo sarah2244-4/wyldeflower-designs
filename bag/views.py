@@ -5,7 +5,9 @@ from products.models import Product
 
 
 def view_bag(request):
-    """ A view that renders the bag contents page """
+    """
+    A view that renders the bag contents page
+    """
 
     return render(request, 'bag/view_bag.html')
 
@@ -98,5 +100,5 @@ def remove_from_bag(request, item_id):
         return HttpResponse(status=200)
 
     except Exception as e:
-        messages.error(request, f'Error removing item: {e}')
+        messages.alert(request, f'Error removing item: {e}')
         return HttpResponse(status=500)
