@@ -1,12 +1,11 @@
 document.addEventListener("DOMContentLoaded", function () {
+	const alertList = document.querySelectorAll(".alert");
+	const alerts = [...alertList].map((element) => new bootstrap.Alert(element));
+	const bsAlert = new bootstrap.Alert("#myAlert");
 	setActiveLink();
 	var myModal = new bootstrap.Modal(document.getElementById("subscribeModal"), {
 		keyboard: false,
 	});
-	const toastElList = document.querySelectorAll(".toast");
-	const toastList = [...toastElList].map(
-		(toastEl) => new bootstrap.Toast(toastEl, option)
-	);
 
 });
 

@@ -105,7 +105,7 @@ TEMPLATES = [
 
 MESSAGE_STORAGE = 'django.contrib.messages.storage.session.SessionStorage'
 
-from django.contrib.messages import constants as messages
+from django.contrib import messages
 
 MESSAGE_TAGS = {
     messages.DEBUG: 'alert-info',

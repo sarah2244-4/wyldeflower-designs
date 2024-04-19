@@ -109,6 +109,15 @@ footer {
     height: 2px;
 }
 
+/* Toasts */
+
+.toast-container {
+    position: fixed;
+    top: 20px; 
+    left: 30px;
+    z-index: 1050; 
+}
+
 /* Media Queries */
 
 @media screen and (max-width: 900px) {
