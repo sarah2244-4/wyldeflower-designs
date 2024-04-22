@@ -6,6 +6,8 @@ document.addEventListener("DOMContentLoaded", function () {
 	var myModal = new bootstrap.Modal(document.getElementById("subscribeModal"), {
 		keyboard: false,
 	});
+	$(".toast").toast("show");
+    
 
 });
 

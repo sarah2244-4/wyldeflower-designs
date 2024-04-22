@@ -120,6 +120,10 @@ footer {
     color: var(--pale);
 }
 
+.increment-qty, .update-link, .remove-item {
+    cursor: pointer;
+}
+
 .btn-black:hover, .btn-black:active, .btn-black:focus {
     background-color: var(--brown);
     color: var(--font-color);
