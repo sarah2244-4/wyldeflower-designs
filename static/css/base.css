@@ -109,13 +109,20 @@ footer {
     height: 2px;
 }
 
-/* Toasts */
+/* Alert */
 
-.toast-container {
-    position: fixed;
-    top: 20px; 
-    left: 30px;
-    z-index: 1050; 
+
+
+/* Buttons */
+
+.btn-black {
+    background-color: black;
+    color: var(--pale);
+}
+
+.btn-black:hover, .btn-black:active, .btn-black:focus {
+    background-color: var(--brown);
+    color: var(--font-color);
 }
 
 /* Media Queries */
