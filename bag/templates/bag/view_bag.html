@@ -37,7 +37,7 @@
                                         {% endif %}
                                     </td>
                                     <td class="py-3">
-                                        <p class="my-0"><strong>{{ item.product.name }}</strong></p>
+                                        <a href="{% url 'product_detail' item.product.id item.product.slug %}" class="my-0"><strong>{{ item.product.name }}</strong></p></a>
                                     </td>
                                     <td class="py-3">
                                         <p class="my-0">£{{ item.product.price }}</p>
@@ -73,7 +73,7 @@
                                         <a class="remove-item text-danger float-right" id="remove_{{ item.item_id }}"><small>Remove</small></a>
                                     </td>
                                     <td class="py-3">
-                                        <p class="my-0">£{{ item.product.price }}</p>
+                                        <p class="my-0">£{{ item.subtotal }}</p>
                                     </td>
                                 </tr>
                             {% endfor %}
