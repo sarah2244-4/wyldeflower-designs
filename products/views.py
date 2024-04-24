@@ -4,8 +4,8 @@ from django.contrib.auth.decorators import login_required
 from django.db.models import Q
 from django.db.models.functions import Lower
 
-from .models import Category, Product
-from .forms import ProductForm
+from .models import Category, Product, ProductImage
+from .forms import ProductForm, ProductImageForm
 
 
 def all_products(request):
@@ -73,13 +73,14 @@ def product_detail(request, product_id, slug):
     """
 
     product = get_object_or_404(Product, pk=product_id)
+    images = product.images.all()
 
     context = {
         'product': product,
+        'images': images,
     }
 
     return render(request, 'products/product_detail.html', context)
-
 
 
 @login_required
@@ -92,21 +93,34 @@ def add_product(request):
         return redirect(reverse('home'))
 
     if request.method == 'POST':
-        form = ProductForm(request.POST, request.FILES)
-        if form.is_valid():
-            product = form.save()
+        product_form = ProductForm(request.POST)
+        image_forms = [ProductImageForm(request.POST, request.FILES, prefix=f'image_form_{i}') for i in range(5)]
+
+        if product_form.is_valid() and all(image_form.is_valid() for image_form in image_forms):
+            product = product_form.save()
+
+            for image_form in image_forms:
+                if image_form.cleaned_data.get('image'):
+                    product_image = image_form.save(commit=False)
+                    product_image.product = product
+                    product_image.save()
+
             messages.success(request, 'Successfully added product!')
             return redirect(reverse('product_detail', args=[product.id]))
+        
         else:
             messages.error(request, 'Failed to add product. Please ensure the form is valid.')
+
     else:
-        form = ProductForm()
-        
+        product_form = ProductForm()
+        image_forms = [ProductImageForm(prefix=f'image_form_{i}') for i in range(5)] 
+
     template = 'products/add_product.html'
     context = {
-        'form': form,
+        'product_form': product_form,
+        'image_forms': image_forms,
     }
-
+    
     return render(request, template, context)
 
 

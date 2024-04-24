@@ -24,8 +24,6 @@ class Product(models.Model):
     price = models.DecimalField(max_digits=6, decimal_places=2)
     description = models.TextField()
     size = models.CharField(max_length=25, null=True, blank=True)
-    image_url = models.URLField(max_length=1024, null=True, blank=True)
-    image = models.ImageField(null=True, blank=True)
     thumb = models.ImageField(null=True, blank=True)
     date_added = models.DateTimeField(auto_now_add=True)
     category = models.ForeignKey('Category', null=True, blank=True, on_delete=models.SET_NULL)
@@ -35,5 +33,14 @@ class Product(models.Model):
     
     def get_absolute_url(self):
         return reverse("product_detail", kwargs={"slug": self.slug})
+    
+
+class ProductImage(models.Model):
+    product = models.ForeignKey(Product, related_name='images', on_delete=models.CASCADE)
+    image = models.ImageField(upload_to='product_images/')
+
+    def __str__(self):
+        return f"Image for {self.product.name}"
+
 
         
