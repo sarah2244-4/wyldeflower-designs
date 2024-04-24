@@ -41,11 +41,22 @@ class Order(models.Model):
         Update grand total each time a line item is added,
         accounting for delivery costs.
         """
-        self.order_total = self.lineitems.aggregate(Sum('lineitem_total'))['lineitem_total__sum'] or 0
+        line_items = self.lineitems.all()
+        self.order_total = line_items.aggregate(Sum('lineitem_total'))['lineitem_total__sum'] or 0
+
+        self.delivery_cost = 0
+
+        # Category printables excluded from delivery costs
+        for line_item in line_items:
+            if line_item.product.category.name.lower() != 'printables':
+                self.delivery_cost += line_item.lineitem_total
+
+        # Free delivery over threshold
         if self.order_total < settings.FREE_DELIVERY_THRESHOLD:
-            self.delivery_cost = self.order_total * settings.STANDARD_DELIVERY_PERCENTAGE / 100
+            self.delivery_cost += settings.STANDARD_DELIVERY_PRICE
         else:
             self.delivery_cost = 0
+
         self.grand_total = self.order_total + self.delivery_cost
         self.save()
 
