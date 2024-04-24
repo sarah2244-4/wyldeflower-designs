@@ -24,7 +24,6 @@ class Product(models.Model):
     price = models.DecimalField(max_digits=6, decimal_places=2)
     description = models.TextField()
     size = models.CharField(max_length=25, null=True, blank=True)
-    thumb = models.ImageField(null=True, blank=True)
     date_added = models.DateTimeField(auto_now_add=True)
     category = models.ForeignKey('Category', null=True, blank=True, on_delete=models.SET_NULL)
 

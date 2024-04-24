@@ -94,7 +94,7 @@ def add_product(request):
 
     if request.method == 'POST':
         product_form = ProductForm(request.POST)
-        image_forms = [ProductImageForm(request.POST, request.FILES, prefix=f'image_form_{i}') for i in range(5)]
+        image_forms = [ProductImageForm(request.POST, request.FILES, prefix=f'image_form_{i}')]
 
         if product_form.is_valid() and all(image_form.is_valid() for image_form in image_forms):
             product = product_form.save()
@@ -113,7 +113,7 @@ def add_product(request):
 
     else:
         product_form = ProductForm()
-        image_forms = [ProductImageForm(prefix=f'image_form_{i}') for i in range(5)] 
+        image_forms = [ProductImageForm(prefix=f'image_form_{i}')] 
 
     template = 'products/add_product.html'
     context = {
