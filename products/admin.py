@@ -10,18 +10,21 @@ class ProductAdmin(admin.ModelAdmin):
     list_display = (
         'sku',
         'name',
-        'category',
+        'display_categories',
         'price',
         'description',
         'thumb',  # Display thumbnail
-        'size',
     )
+
+    def display_categories(self, obj):
+        return ', '.join(category.name for category in obj.categories.all())
+
     ordering = ('sku',)
     prepopulated_fields = {"slug": ("name",)} 
-    inlines = [ProductImageInline]  # Include ProductImageInline in ProductAdmin
+    inlines = [ProductImageInline] 
 
     def thumb(self, obj):
-        if obj.images.exists():  # Check if product has associated images
+        if obj.images.exists():
             image_url = obj.images.first().image.url
             return '<img src="{}" style="max-width: 100px; max-height: 100px;" />'.format(image_url)
         return 'No Image'
@@ -31,10 +34,8 @@ class ProductAdmin(admin.ModelAdmin):
 
     def save_model(self, request, obj, form, change):
         super().save_model(request, obj, form, change)
-        # Add custom logic here if needed
 
-admin.site.register(ProductImage)  # Register ProductImage model in admin
-
+admin.site.register(ProductImage) 
 
 
 class CategoryAdmin(admin.ModelAdmin):

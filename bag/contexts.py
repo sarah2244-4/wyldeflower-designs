@@ -9,7 +9,7 @@ def bag_contents(request):
     total = Decimal('0')
     product_count = 0
     subtotal = 0
-    delivery_percentage = Decimal(settings.STANDARD_DELIVERY_PERCENTAGE)
+    delivery_price = 0
     bag = request.session.get('bag', {})
 
     for item_id, quantity in bag.items():
@@ -24,7 +24,10 @@ def bag_contents(request):
             'subtotal': subtotal,
         })
 
-    delivery = total * (delivery_percentage / Decimal('100'))
+        if product.categories == 'printable':
+            delivery = delivery_price
+        else:
+            delivery = Decimal(settings.STANDARD_DELIVERY_PRICE)
     grand_total = total + delivery
     
     context = {

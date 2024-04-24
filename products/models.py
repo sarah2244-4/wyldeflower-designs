@@ -23,9 +23,8 @@ class Product(models.Model):
     slug = models.SlugField(null=False, unique=True)
     price = models.DecimalField(max_digits=6, decimal_places=2)
     description = models.TextField()
-    size = models.CharField(max_length=25, null=True, blank=True)
     date_added = models.DateTimeField(auto_now_add=True)
-    category = models.ForeignKey('Category', null=True, blank=True, on_delete=models.SET_NULL)
+    categories = models.ManyToManyField('Category', blank=True)
 
     def __str__(self):
         return self.name
@@ -36,7 +35,7 @@ class Product(models.Model):
 
 class ProductImage(models.Model):
     product = models.ForeignKey(Product, related_name='images', on_delete=models.CASCADE)
-    image = models.ImageField(upload_to='product_images/')
+    image = models.ImageField(upload_to='product_images/', blank=True, null=True)
 
     def __str__(self):
         return f"Image for {self.product.name}"
