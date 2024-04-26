@@ -1,6 +1,7 @@
-from decimal import Decimal
 from django.conf import settings
 from django.shortcuts import get_object_or_404
+from decimal import Decimal
+
 from products.models import Product
 
 def bag_contents(request):
@@ -8,8 +9,8 @@ def bag_contents(request):
     bag_items = []
     total = Decimal('0')
     product_count = 0
-    subtotal = 0
-    delivery_price = 0
+    subtotal = Decimal('0')
+    delivery_price = Decimal('0')
     bag = request.session.get('bag', {})
 
     for item_id, quantity in bag.items():
@@ -25,7 +26,7 @@ def bag_contents(request):
         })
 
         if product.categories == 'printable':
-            delivery = delivery_price
+            delivery = Decimal(delivery_price)
         else:
             delivery = Decimal(settings.STANDARD_DELIVERY_PRICE)
     grand_total = total + delivery

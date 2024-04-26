@@ -3,6 +3,7 @@ import uuid
 from django.db import models
 from django.db.models import Sum
 from django.conf import settings
+from decimal import Decimal
 
 from django_countries.fields import CountryField
 
@@ -44,18 +45,16 @@ class Order(models.Model):
         line_items = self.lineitems.all()
         self.order_total = line_items.aggregate(Sum('lineitem_total'))['lineitem_total__sum'] or 0
 
-        self.delivery_cost = 0
-
-        # Category printables excluded from delivery costs
-        for line_item in line_items:
-            if line_item.product.category.name.lower() != 'printables':
-                self.delivery_cost += line_item.lineitem_total
+        non_printable_total = line_items.exclude(product__categories__name__icontains='printable').aggregate(Sum('lineitem_total'))['lineitem_total__sum'] or 0
+        printable_total = line_items.filter(product__categories__name__icontains='printable').aggregate(Sum('lineitem_total'))['lineitem_total__sum'] or 0
 
         # Free delivery over threshold
-        if self.order_total < settings.FREE_DELIVERY_THRESHOLD:
-            self.delivery_cost += settings.STANDARD_DELIVERY_PRICE
+        if printable_total == self.order_total:
+            self.delivery_cost = Decimal('0')
+        elif non_printable_total < Decimal(settings.FREE_DELIVERY_THRESHOLD):
+            self.delivery_cost = Decimal(settings.STANDARD_DELIVERY_PRICE)
         else:
-            self.delivery_cost = 0
+            self.delivery_cost = Decimal('0')
 
         self.grand_total = self.order_total + self.delivery_cost
         self.save()
