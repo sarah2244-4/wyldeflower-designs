@@ -38,20 +38,13 @@ def create_or_update_user_profile(sender, instance, created, **kwargs):
 
 
 class Wishlist(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
-    items = models.ManyToManyField('Product', through='WishlistItem')
-
-    def __str__(self):
-        return f"Wishlist for {self.user.username}"
-    
-
-class WishlistItem(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    product = models.ForeignKey(Product, on_delete=models.CASCADE)
-    added_at = models.DateTimeField(auto_now_add=True)
+    wished_product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    slug = models.CharField(max_length=30,null=True,blank=True)
+    added_date = models.DateTimeField(auto_now_add=True)
 
     class Meta:
-        unique_together = ["user", "product"]
+        unique_together = ["user", "wished_product"]
 
-    def __str__(self):
-        return f"{self.user.username}'s Wishlist Item: {self.product.name}"
+def __str__(self):
+    return self.wished_product.name

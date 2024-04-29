@@ -343,6 +343,8 @@ os.environ.setdefault("DB_URL", "postgreSQL database name")
 - [Am I Responsive?](https://ui.dev/amiresponsive) to display a mock-up of my site in different viewports.
 - I used [Coolors](https://coolors.co/) to help me come up with a colour scheme.
 - I used [WebAIM](https://webaim.org/resources/contrastchecker/) to check the contrast of the colours used on all the elements. 
+https://codepen.io/hellomev/pen/LYORMQW carousel
+https://learndjango.com/tutorials/django-slug-tutorial slug tutorial
 
 ### Images
 
@@ -352,6 +354,7 @@ os.environ.setdefault("DB_URL", "postgreSQL database name")
 - Images for products came from [](). 
 
 ### Acknowledgements
+
 
 - Thank you to Code Institute for providing detailed lessons and walkthroughs.
 - Thank you to the Code Institute community on Slack for providing advice and motivation.
