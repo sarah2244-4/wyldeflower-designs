@@ -25,9 +25,13 @@ def index(request):
 
     current_sorting = f'{sort}_{direction}'
 
+    recent_products = Product.objects.order_by('-date_added')[:8]
+    most_viewed_products = Product.objects.order_by('-views')[:8]
+
     context = {
         'products': products,
         'current_sorting': current_sorting,
+        'recent_products': recent_products,
     }
 
     return render(request, 'home/index.html', context)

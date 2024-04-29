@@ -74,6 +74,10 @@ def product_detail(request, product_id, slug):
 
     product = get_object_or_404(Product, pk=product_id)
     images = product.images.all()
+    
+    # Increment view count
+    product.views += 1
+    product.save()
 
     context = {
         'product': product,

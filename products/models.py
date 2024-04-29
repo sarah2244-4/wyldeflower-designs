@@ -25,6 +25,7 @@ class Product(models.Model):
     description = models.TextField()
     date_added = models.DateTimeField(auto_now_add=True)
     categories = models.ManyToManyField('Category', blank=True)
+    views = models.PositiveIntegerField(default=0)
 
     def __str__(self):
         return self.name
