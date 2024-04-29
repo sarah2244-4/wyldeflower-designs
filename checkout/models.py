@@ -52,11 +52,12 @@ class Order(models.Model):
 
         non_printable_total = line_items.exclude(product__categories__name__icontains='printable').aggregate(Sum('lineitem_total'))['lineitem_total__sum'] or 0
         printable_total = line_items.filter(product__categories__name__icontains='printable').aggregate(Sum('lineitem_total'))['lineitem_total__sum'] or 0
+        total = printable_total + non_printable_total
 
         # Free delivery over threshold
         if printable_total == self.order_total:
             self.delivery_cost = Decimal('0')
-        elif non_printable_total < Decimal(settings.FREE_DELIVERY_THRESHOLD):
+        elif total < Decimal(settings.FREE_DELIVERY_THRESHOLD):
             self.delivery_cost = Decimal(settings.STANDARD_DELIVERY_PRICE)
         else:
             self.delivery_cost = Decimal('0')
