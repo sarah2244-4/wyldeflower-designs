@@ -237,6 +237,14 @@ select option[value=""] {
 
 /* Carousel */
 
+.carousel-control-prev {
+    transform: translateX(-140px);
+}
+
+.carousel-control-next {
+    transform: translateX(140px);
+}
+
 @media (max-width: 767px) {
     .carousel-inner .carousel-item > div {
         display: none;
