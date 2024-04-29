@@ -143,52 +143,83 @@ Fonts were chosen to maintain high readability and with female parents in mind. 
 <details>
 <summary>Home Page</summary>
 
+</details>
+
 <details>
 <summary>Navigation Bar</summary>
+
+</details>
 
 <details>
 <summary>Footer</summary>
 
+</details>
+
 <details>
 <summary>Sign Up Form</summary>
+
+</details>
 
 <details>
 <summary>Login Form</summary>
 
+</details>
+
 <details>
 <summary>Bag</summary>
+
+</details>
 
 <details>
 <summary>Checkout</summary>
 
 - Stripe integration
+</details>
 
 <details>
 <summary>Products View</summary>
 
+</details>
+
 <details>
 <summary>Products Filter</summary>
+
+</details>
 
 <details>
 <summary>How It Works</summary>
 
+</details>
+
 <details>
 <summary>Detailed Product View</summary>
+
+</details>
 
 <details>
 <summary>Profile</summary>
 
+</details>
+
 <details>
 <summary>Admin Page</summary>
+
+</details>
 
 <details>
 <summary>Add Product</summary>
 
+</details>
+
 <details>
 <summary>Logout</summary>
 
+</details>
+
 <details>
 <summary>404 Page</summary>
+
+</details>
 
 ### Future Features
 
