@@ -35,3 +35,10 @@ def index(request):
     }
 
     return render(request, 'home/index.html', context)
+
+def how_it_works(request):
+    """
+    View the how it works page
+    """
+
+    return render(request, 'home/how_it_works.html')
