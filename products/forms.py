@@ -26,3 +26,13 @@ class ProductImageForm(forms.ModelForm):
     class Meta:
         model = ProductImage
         fields = ['image']
+
+
+class AddToWishlistForm(forms.ModelForm):
+    product_id = forms.IntegerField(widget=forms.HiddenInput())
+
+    def clean_product_id(self):
+        product_id = self.cleaned_data.get('product_id')
+        if not Product.objects.filter(id=product_id).exists():
+            raise forms.ValidationError('Invalid product ID.')
+        return product_id

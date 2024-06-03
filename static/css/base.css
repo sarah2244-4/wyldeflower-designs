@@ -226,6 +226,13 @@ select option[value=""] {
     height: 100%;
 }
 
+/* Images */
+
+.thumbnail {
+    width: 150px;
+    height: auto;
+    
+}
 
 /* Media Queries */
 

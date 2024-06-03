@@ -1,5 +1,5 @@
 from django import forms
-from .models import UserProfile
+from .models import UserProfile, Product
 
 
 class UserProfileForm(forms.ModelForm):
@@ -32,3 +32,13 @@ class UserProfileForm(forms.ModelForm):
                 self.fields[field].widget.attrs['placeholder'] = placeholder
             self.fields[field].widget.attrs['class'] = 'border-black rounded-0 profile-form-input'
             self.fields[field].label = False
+
+
+class AddToWishlistForm(forms.ModelForm):
+    product_id = forms.IntegerField(widget=forms.HiddenInput())
+
+    def clean_product_id(self):
+        product_id = self.cleaned_data.get('product_id')
+        if not Product.objects.filter(id=product_id).exists():
+            raise forms.ValidationError('Invalid product ID.')
+        return product_id

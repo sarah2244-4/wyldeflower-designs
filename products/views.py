@@ -5,7 +5,7 @@ from django.db.models import Q
 from django.db.models.functions import Lower
 
 from .models import Category, Product, ProductImage
-from .forms import ProductForm, ProductImageForm
+from .forms import ProductForm, ProductImageForm, AddToWishlistForm
 
 
 def all_products(request):
@@ -172,3 +172,23 @@ def delete_product(request, product_id):
     product.delete()
     messages.success(request, 'Product deleted!')
     return redirect(reverse('products'))
+
+@login_required
+def add_to_wishlist(request):
+    if request.method == 'POST':
+        form = AddToWishlistForm(request.POST)
+        if form.is_valid():
+            product_id = form.cleaned_data['product_id']
+            slug = form.cleaned_data['slug']
+            product = get_object_or_404(Product, id=product_id, slug=slug)
+            wished_product, created = Wishlist.objects.get_or_create(
+                wished_product=product,
+                user=request.user,
+            )
+            if created:
+                messages.success(request, 'The item was added to your wishlist.')
+            else:
+                messages.info(request, 'The item is already in your wishlist.')
+        else:
+            messages.error(request, 'Failed to add to wishlist. Invalid data.')
+    return redirect(request.META.get('HTTP_REFERER', 'product_list'))

@@ -35,17 +35,21 @@
                         {% for item in wishlist %}
                             <tr>
                                 <td>
-                                    <a href="{% url 'product' item.wished_product.id item.wished_product.slug %}"
+                                    <a href="{% url 'product_detail' item.wished_product.id item.wished_product.slug %}"
                                     title="{{ product.wished_product.name }}">
-                                        {{ item.wished_product.name }}
-                                        {% if item.wished_product.images.first %}
-                                            <img src="{{ item.wished_product.images.first.image.url }}" alt="{{ item.wished_product.name }}">
-                                        {% endif %}
+                                        <ul>
+                                            <li>{{ item.wished_product.name }}</li>
+                                            <li>
+                                                {% if item.wished_product.images.first %}
+                                                    <img class="thumbnail" src="{{ item.wished_product.images.first.image.url }}" alt="{{ item.wished_product.name }}">
+                                                {% endif %}
+                                            </li>
+                                        </ul>
                                     </a>
                                 </td>
                                 <td>£{{ item.wished_product.price }}</td>
                                 <td>
-                                    {{ item.added_date }}
+                                    {{ item.added_date.date }}
                                 </td>
                             </tr>
                         {% endfor %}
