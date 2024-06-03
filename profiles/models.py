@@ -40,11 +40,10 @@ def create_or_update_user_profile(sender, instance, created, **kwargs):
 class Wishlist(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     wished_product = models.ForeignKey(Product, on_delete=models.CASCADE)
-    slug = models.CharField(max_length=30,null=True,blank=True)
     added_date = models.DateTimeField(auto_now_add=True)
 
     class Meta:
         unique_together = ["user", "wished_product"]
 
-def __str__(self):
-    return self.wished_product.name
+    def __str__(self):
+        return self.wished_product.name

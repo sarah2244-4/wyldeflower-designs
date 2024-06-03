@@ -352,6 +352,21 @@ https://learndjango.com/tutorials/django-slug-tutorial slug tutorial
 - The site's favicon was generated at [favicon.io](https://favicon.io/favicon-generator/). 
 - The logo was created with [LogoAI's logo maker](https://www.logoai.com/logo-maker).
 - Images for products came from [](). 
+- Photo by Moose Photos: https://www.pexels.com/photo/white-and-yellow-flower-on-pink-wall-1037994/ 
+- Photo by Somben Chea: https://www.pexels.com/photo/blue-lollipop-1289363/
+Photo by lil artsy: https://www.pexels.com/photo/leaf-painting-with-brown-wooden-frame-1508109/ 
+
+Photo by Julia Volk: https://www.pexels.com/photo/picture-of-cock-painted-with-watercolors-placed-on-table-6157689/
+Photo by Leeloo The First: https://www.pexels.com/photo/photo-of-easter-bunny-painting-6487197/
+Photo by Karolina Grabowska: https://www.pexels.com/photo/mix-of-blue-and-brown-dye-on-white-paper-4046716/
+Photo by RDNE Stock project: https://www.pexels.com/photo/little-girl-holding-white-paper-with-rainbow-drawing-8363769/
+
+Photo by Pavel Danilyuk: https://www.pexels.com/photo/watercolor-painting-of-flowers-on-white-paper-6925155/
+Photo by Artem Podrez: https://www.pexels.com/photo/child-s-artwork-6941844/
+Photo by Monstera Production: https://www.pexels.com/photo/hallowen-decors-on-gray-background-5635097/
+Photo by 二牛 万: https://www.pexels.com/photo/illustration-with-dry-cypress-branches-and-a-flower-head-24252222/
+
+
 
 ### Acknowledgements
 

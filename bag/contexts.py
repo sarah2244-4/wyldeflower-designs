@@ -11,6 +11,7 @@ def bag_contents(request):
     total = Decimal('0')
     product_count = 0
     subtotal = Decimal('0')
+    delivery_cost = Decimal('0')
     bag = request.session.get('bag', {})
 
     for item_id, quantity in bag.items():
@@ -26,9 +27,9 @@ def bag_contents(request):
             'total': total,
         })
 
+    non_printable_total = Decimal('0')
+    printable_total = Decimal('0')
     for item in bag_items:
-        non_printable_total = Decimal('0')
-        printable_total = Decimal('0')
         if 'printable' not in item['product'].categories.values_list('name', flat=True):
             non_printable_total += item['subtotal']
         else:
