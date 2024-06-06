@@ -345,6 +345,7 @@ os.environ.setdefault("DB_URL", "postgreSQL database name")
 - I used [WebAIM](https://webaim.org/resources/contrastchecker/) to check the contrast of the colours used on all the elements. 
 https://codepen.io/hellomev/pen/LYORMQW carousel
 https://learndjango.com/tutorials/django-slug-tutorial slug tutorial
+https://stackoverflow.com/questions/77212709/django-clearablefileinput-does-not-support-uploading-multiple-files-error 
 
 ### Images
 
@@ -369,6 +370,7 @@ Photo by 二牛 万: https://www.pexels.com/photo/illustration-with-dry-cypress-
 
 
 ### Acknowledgements
+
 
 
 - Thank you to Code Institute for providing detailed lessons and walkthroughs.

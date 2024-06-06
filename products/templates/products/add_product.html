@@ -1,0 +1,91 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block page_header %}
+    <div class="container header-container">
+        <div class="row">
+            <div class="col"></div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block content %}
+    <div class="overlay"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-12 col-md-6">
+                <hr>
+                <h2 class="logo-font mb-4">Product Management</h2>
+                <h5 class="text-muted">Add a Product</h5>
+                <hr>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-12 col-md-6">
+                <form method="POST" action="{% url 'add_product' %}" class="form mb-2" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    {{ product_form|crispy }}
+                    {% if product_form.errors %}
+                        <div class="alert alert-danger">
+                            <strong>Please correct the errors below:</strong>
+                            {{ product_form.non_field_errors }}
+                            {% for field in product_form %}
+                                {% if field.errors %}
+                                    <div>{{ field.label }}: {{ field.errors }}</div>
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                    <div id="cover_image_preview"></div>
+                    <div id="images_preview"></div>
+                    <div class="text-right">
+                        <a class="btn btn-outline-black rounded-0" href="{% url 'products' %}">Cancel</a>
+                        <button class="btn btn-black rounded-0" type="submit" value="submit">Add Product</button>
+                    </div>
+                </form>
+            </div>            
+        </div>
+    </div>
+{% endblock %}
+
+{% block postloadjs %}
+    {{ block.super }}
+    <script type="text/javascript">
+        $('#new-image').change(function() {
+            var file = $('#new-image')[0].files[0];
+            $('#filename').text(`Image will be set to: ${file.name}`);
+        });
+
+
+        function previewImages(input, previewContainer) {
+        if (input.files) {
+            const filesArray = Array.from(input.files);
+            filesArray.forEach(file => {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const img = document.createElement('img');
+                    img.src = e.target.result;
+                    img.style.maxWidth = '100px';
+                    img.style.maxHeight = '100px';
+                    img.style.margin = '10px';
+                    previewContainer.appendChild(img);
+                };
+                reader.readAsDataURL(file);
+            });
+        }
+    }
+
+    document.getElementById('id_cover_image').addEventListener('change', function() {
+        const previewContainer = document.getElementById('cover_image_preview');
+        previewContainer.innerHTML = '';  // Clear previous previews
+        previewImages(this, previewContainer);
+    });
+
+    document.getElementById('id_images').addEventListener('change', function() {
+        const previewContainer = document.getElementById('images_preview');
+        previewContainer.innerHTML = '';  // Clear previous previews
+        previewImages(this, previewContainer);
+    });
+    </script>
+{% endblock %}

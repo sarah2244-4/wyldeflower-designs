@@ -1,11 +1,14 @@
 from django.shortcuts import render, redirect, reverse, get_object_or_404
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.utils.text import slugify
 from django.db.models import Q
 from django.db.models.functions import Lower
 
 from .models import Category, Product, ProductImage
-from .forms import ProductForm, ProductImageForm, AddToWishlistForm
+from .forms import ProductForm
+from profiles.forms import AddToWishlistForm
+from profiles.models import Wishlist
 
 
 def all_products(request):
@@ -97,32 +100,34 @@ def add_product(request):
         return redirect(reverse('home'))
 
     if request.method == 'POST':
-        product_form = ProductForm(request.POST)
-        image_forms = [ProductImageForm(request.POST, request.FILES, prefix=f'image_form_{i}')]
+        product_form = ProductForm(request.POST, request.FILES)
 
-        if product_form.is_valid() and all(image_form.is_valid() for image_form in image_forms):
-            product = product_form.save()
+        if product_form.is_valid():
+            product = product_form.save(commit=False)
+            product.slug = slugify(product.name)
+            product.save()
 
-            for image_form in image_forms:
-                if image_form.cleaned_data.get('image'):
-                    product_image = image_form.save(commit=False)
-                    product_image.product = product
-                    product_image.save()
+            # Save cover image
+            cover_image = request.FILES.get('cover_image')
+            if cover_image:
+                ProductImage.objects.create(product=product, image=cover_image, is_cover=True)
 
+            # Handle additional images
+            for file in request.FILES.getlist('images'):
+                ProductImage.objects.create(product=product, image=file, is_cover=False)
+            
             messages.success(request, 'Successfully added product!')
-            return redirect(reverse('product_detail', args=[product.id]))
+            return redirect(reverse('product_detail', args=[product.id, product.slug]))
         
         else:
             messages.error(request, 'Failed to add product. Please ensure the form is valid.')
 
     else:
         product_form = ProductForm()
-        image_forms = [ProductImageForm(prefix=f'image_form_{i}')] 
 
     template = 'products/add_product.html'
     context = {
         'product_form': product_form,
-        'image_forms': image_forms,
     }
     
     return render(request, template, context)
