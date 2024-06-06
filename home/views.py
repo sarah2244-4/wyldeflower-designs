@@ -32,6 +32,7 @@ def index(request):
         'products': products,
         'current_sorting': current_sorting,
         'recent_products': recent_products,
+        'most_viewed_products': most_viewed_products,
     }
 
     return render(request, 'home/index.html', context)

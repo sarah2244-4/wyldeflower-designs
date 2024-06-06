@@ -104,7 +104,7 @@ def add_product(request):
 
         if product_form.is_valid():
             product = product_form.save(commit=False)
-            product.slug = slugify(product.name)
+            product.slug = unique_slug_generator(product)
             product.save()
 
             # Save cover image
@@ -197,3 +197,12 @@ def add_to_wishlist(request):
         else:
             messages.error(request, 'Failed to add to wishlist. Invalid data.')
     return redirect(request.META.get('HTTP_REFERER', 'product_list'))
+
+
+def unique_slug_generator(instance, new_slug=None):
+    slug = new_slug or slugify(instance.name)
+    Klass = instance.__class__
+    if Klass.objects.filter(slug=slug).exists():
+        new_slug = f"{slug}-{Klass.objects.filter(slug=slug).count() + 1}"
+        return unique_slug_generator(instance, new_slug=new_slug)
+    return slug
