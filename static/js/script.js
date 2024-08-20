@@ -1,5 +1,9 @@
 document.addEventListener("DOMContentLoaded", function () {
 	const alertList = document.querySelectorAll(".alert");
+
+	const dropdownElementList = document.querySelectorAll('.dropdown-toggle');
+	
+	const dropdownList = [...dropdownElementList].map(dropdownToggleEl => new bootstrap.Dropdown(dropdownToggleEl))
 	let items = document.querySelectorAll('.carousel .carousel-item')
 	items.forEach((el) => {
 		const minPerSlide = 4
